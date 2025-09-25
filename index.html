@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo y Automatización - COTITO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        :root {
+            --bg-color: #f7f9fc;
+            --text-color: #1E3B5C;
+            --circle-color: #d3e1f7;
+            --glass-bg: rgba(255, 255, 255, 0.2);
+            --border-color: #e5e7eb;
+            --form-text: #4b5563;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #151a21;
+            --text-color: #e9ecef;
+            --circle-color: #2c3440;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --border-color: #374151;
+            --form-text: #d1d5db;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .text-cotito-blue-dark {
+            color: var(--text-color);
+        }
+        .bg-cotito-blue-dark {
+            background-color: #1E3B5C;
+        }
+        .bg-cotito-blue-vibrant {
+            background-color: #5A64FF;
+        }
+        .text-cotito-blue-vibrant {
+            color: #5A64FF;
+        }
+        .glass-bg {
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-color: var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .circle-pattern {
+            background-image: radial-gradient(var(--circle-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transition: background-image 0.3s ease;
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toggle-switch-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 50;
+        }
+
+        .toggle-checkbox {
+            display: none;
+        }
+
+        .toggle-label {
+            display: block;
+            width: 60px;
+            height: 30px;
+            background-color: #cbd5e1;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-label::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 26px;
+            height: 26px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #2d3748;
+        }
+
+        .toggle-checkbox:checked + .toggle-label::after {
+            transform: translateX(30px);
+        }
+
+        .sun-icon, .moon-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sun-icon {
+            right: 5px;
+            opacity: 1;
+        }
+
+        .moon-icon {
+            left: 5px;
+            opacity: 0;
+        }
+        .toggle-checkbox:checked + .toggle-label .sun-icon {
+            opacity: 0;
+        }
+
+        .toggle-checkbox:checked + .toggle-label .moon-icon {
+            opacity: 1;
+        }
+
+        .logo-img {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background-color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Form input styles */
+        .form-input {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border-color: var(--border-color);
+        }
+
+        .form-input:focus {
+            border-color: #5A64FF;
+            outline: none;
+        }
+
+        .form-label {
+            color: var(--text-color);
+        }
+
+        /* Adaptive text styles */
+        .text-adaptive {
+            color: var(--text-color);
+        }
+
+        .text-adaptive-muted {
+            color: var(--form-text);
+        }
+
+        /* Testimonials Carousel Styles */
+        .testimonials-carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonials-container {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-size: 1.125rem;
+            line-height: 1.75;
+            font-style: italic;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #5A64FF;
+            font-size: 1rem;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background-color: #5A64FF;
+        }
+
+        /* Star Rating Styles */
+        .star-rating {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .star {
+            width: 20px;
+            height: 20px;
+            fill: #fbbf24;
+            opacity: 0;
+            animation: starAppear 0.5s ease forwards;
+        }
+
+        .star:nth-child(1) { animation-delay: 0.1s; }
+        .star:nth-child(2) { animation-delay: 0.2s; }
+        .star:nth-child(3) { animation-delay: 0.3s; }
+        .star:nth-child(4) { animation-delay: 0.4s; }
+        .star:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes starAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(180deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(90deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .star:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+
+        .star.empty {
+            fill: none;
+            stroke: #fbbf24;
+            stroke-width: 1.5;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="circle-pattern">
+
+    <!-- Dark Mode Toggle Switch -->
+    <div class="toggle-switch-container">
+        <input type="checkbox" id="theme-toggle" class="toggle-checkbox">
+        <label for="theme-toggle" class="toggle-label">
+            <svg class="sun-icon" fill="#facc15" viewBox="0 0 24 24" stroke="none">
+                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.75 9a.75.75 0 01.75.75v.75h.75a.75.75 0 010 1.5h-.75v.75a.75.75 0 01-1.5 0v-.75-.75a.75.75 0 01.75-.75zM4.5 9a.75.75 0 01.75.75v.75H6a.75.75 0 010 1.5H5.25v.75a.75.75 0 01-1.5 0v-.75-.75a.75.75 0 01.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM5.187 5.187a.75.75 0 011.06-1.06L7.25 5.25l-.75.75-.75-.75-1.06-1.06zM18.813 5.187l-1.06 1.06-.75-.75.75-.75 1.06-1.06.75.75.75-.75 1.06 1.06-.75.75-.75-.75zM5.187 18.813a.75.75 0 011.06-1.06l1.06 1.06.75-.75.75.75-1.06 1.06-1.06-1.06-.75.75-.75-.75-1.06-1.06zM18.813 18.813l-1.06 1.06-.75-.75.75-.75 1.06-1.06.75.75.75-.75-1.06-1.06z"/>
+            </svg>
+            <svg class="moon-icon" fill="#3b82f6" viewBox="0 0 24 24" stroke="none">
+                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.75 9a.75.75 0 01.75.75v.75h.75a.75.75 0 010 1.5h-.75v.75a.75.75 0 01-1.5 0v-.75-.75a.75.75 0 01.75-.75zM4.5 9a.75.75 0 01.75.75v.75H6a.75.75 0 010 1.5H5.25v.75a.75.75 0 01-1.5 0v-.75-.75a.75.75 0 01.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM5.187 5.187a.75.75 0 011.06-1.06L7.25 5.25l-.75.75-.75-.75-1.06-1.06zM18.813 5.187l-1.06 1.06-.75-.75.75-.75 1.06-1.06.75.75.75-.75-1.06-1.06zM5.187 18.813a.75.75 0 011.06-1.06l1.06 1.06.75-.75.75.75-1.06 1.06-1.06-1.06-.75.75-.75-.75-1.06-1.06zM18.813 18.813l-1.06 1.06-.75-.75.75-.75 1.06-1.06.75.75.75-.75-1.06-1.06z"/>
+            </svg>
+        </label>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative flex flex-col items-center justify-center min-h-screen px-4 py-12 text-center">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <svg class="absolute top-[-50px] left-[-50px] w-64 h-64 md:w-96 md:h-96 text-cotito-blue-vibrant opacity-10" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+            </svg>
+            <svg class="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 text-cotito-blue-dark opacity-10" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+            </svg>
+            <svg class="absolute bottom-[-50px] right-[-50px] w-64 h-64 md:w-96 md:h-96 text-cotito-blue-vibrant opacity-5" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+            </svg>
+        </div>
+        
+        <div class="relative z-10 p-6 rounded-2xl shadow-xl max-w-4xl glass-bg">
+            <img id="logo" src="https://i.postimg.cc/PqcVDPQ2/Gemini-Generated-Image-1t8a2v1t8a2v1t8a.png" alt="Logo de COTITO" class="mx-auto h-18 mb-4 logo-img">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight text-cotito-blue-dark">
+                Desarrollo y Automatización
+            </h1>
+            <p class="text-lg md:text-xl font-medium text-cotito-blue-dark max-w-2xl mx-auto mb-8">
+                Un taller intensivo de Desarrollo y Automatización donde adquieres competencias clave en Control de Versiones (Git y Github), Automatización (n8n) e Integración de APIs.
+            </p>
+            <a href="#about-section" class="inline-block px-8 py-3 text-lg font-bold rounded-full bg-cotito-blue-vibrant text-white shadow-lg transform transition hover:scale-105 hover:shadow-2xl">
+                Saber Más
+            </a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about-section" class="px-4 py-16 md:py-24 max-w-5xl mx-auto text-center fade-in-on-scroll">
+        <h2 class="text-3xl md:text-5xl font-bold mb-8 text-cotito-blue-dark">Lo que hemos trabajado</h2>
+        <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-left">
+            <!-- Feature 1 -->
+            <div class="p-6 rounded-xl shadow-lg border border-gray-200 glass-bg fade-in-on-scroll">
+                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Integración de APIs</h3>
+                <p class="text-base text-adaptive-muted">
+                    Manejamos la integración de APIs para conectar sistemas, permitiendo la comunicación fluida y el intercambio de datos entre aplicaciones.
+                </p>
+            </div>
+            <!-- Feature 2 -->
+            <div class="p-6 rounded-xl shadow-lg border border-gray-200 glass-bg fade-in-on-scroll">
+                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3m0 0l3-3m-3 3v4m6 7a2 2 0 01-2-2v-3.3a2 2 0 00-1-1.73l-1-.5a2 2 0 01-1-1.73V7a2 2 0 00-2-2H9a2 2 0 00-2 2v.5a2 2 0 01-1 1.73l-1 .5A2 2 0 002 14v3a2 2 0 002 2h16a2 2 0 002-2v-3a2 2 0 00-2-2H8z" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Control de Versiones</h3>
+                <p class="text-base text-adaptive-muted">
+                    Expertos en Git y Github para gestionar y rastrear cambios en el código, facilitando la colaboración y el desarrollo de software.
+                </p>
+            </div>
+            <!-- Feature 3 -->
+            <div class="p-6 rounded-xl shadow-lg border border-gray-200 glass-bg fade-in-on-scroll">
+                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Automatización (n8n)</h3>
+                <p class="text-base text-adaptive-muted">
+                    Dominamos la automatización de flujos de trabajo con n8n, creando procesos eficientes para tareas repetitivas y complejas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEO Section -->
+    <section class="px-4 py-16 md:py-24 max-w-5xl mx-auto text-center fade-in-on-scroll">
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <div class="md:w-1/3 flex justify-center">
+                <img src="https://i.postimg.cc/wvCgG44M/Whats-App-Image-2025-07-14-at-13-19-51-1.jpg" alt="Foto del CEO" class="rounded-full shadow-lg border-4 border-white transform transition hover:scale-105">
+            </div>
+            <div class="md:w-2/3 text-left">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 text-cotito-blue-dark">Un Mensaje del Fundador</h2>
+                <blockquote class="italic text-lg md:text-xl font-light text-adaptive-muted border-l-4 border-cotito-blue-vibrant pl-4">
+                    "En 'COTITO', hemos creado un espacio de formación intensiva para impulsar a la próxima generación de innovadores. Nuestro enfoque práctico garantiza que cada estudiante adquiera las habilidades técnicas y la mentalidad necesarias para resolver problemas reales. Estoy inmensamente orgulloso del progreso de cada uno de ellos."
+                </blockquote>
+                <p class="mt-4 text-xl font-semibold text-cotito-blue-dark">Mauricio Díaz</p>
+                <p class="text-lg text-adaptive-muted">FullStack Developer & CEO</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="px-4 py-16 md:py-24 max-w-4xl mx-auto text-center fade-in-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-cotito-blue-dark">Lo que mis estudiantes dicen:</h2>
+        
+        <div class="testimonials-carousel">
+            <div class="testimonials-container" id="testimonials-container">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">
+                        "El taller de COTITO cambió completamente mi perspectiva sobre el desarrollo. Aprendí Git, n8n y APIs de una manera muy práctica. Mauricio es un excelente instructor que hace que conceptos complejos sean fáciles de entender."
+                    </p>
+                    <div class="testimonial-author">- Ana García, Desarrolladora Frontend</div>
+                    
+                    <!-- Star Rating -->
+                    <div class="star-rating">
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">
+                        "Increíble experiencia de aprendizaje. La automatización con n8n me ayudó a optimizar mis procesos de trabajo. El enfoque práctico y la metodología de enseñanza son excepcionales. ¡Totalmente recomendado!"
+                    </p>
+                    <div class="testimonial-author">- Carlos Rodríguez, Analista de Sistemas</div>
+                    
+                    <!-- Star Rating - 4 of 5 stars -->
+                    <div class="star-rating">
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star empty" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">
+                        "Como desarrollador senior, pensé que sabía todo sobre Git, pero COTITO me mostró técnicas avanzadas que mejoraron mi flujo de trabajo. Las integraciones de APIs que aprendí las uso diariamente en mi trabajo."
+                    </p>
+                    <div class="testimonial-author">- María López, Senior Developer</div>
+                    
+                    <!-- Star Rating -->
+                    <div class="star-rating">
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-indicators">
+                <div class="indicator active" onclick="goToSlide(0)"></div>
+                <div class="indicator" onclick="goToSlide(1)"></div>
+                <div class="indicator" onclick="goToSlide(2)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact-form" class="px-4 py-16 md:py-24 max-w-2xl mx-auto text-center fade-in-on-scroll">
+        <h2 class="text-3xl md:text-5xl font-bold mb-8 text-cotito-blue-dark">
+            ¿Quieres saber más?
+        </h2>
+        <p class="text-lg md:text-xl text-adaptive-muted mb-8">
+            Si te interesa inscribirte en nuestro próximo taller o necesitas más información, llena el siguiente formulario y nos pondremos en contacto contigo.
+        </p>
+        <form id="contact-form" class="p-6 rounded-2xl shadow-xl border border-gray-200 glass-bg">
+            <div class="mb-4 text-left">
+                <label for="name" class="block text-sm font-medium form-label mb-1">Nombre Completo</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border-2 form-input focus:border-cotito-blue-vibrant transition-colors">
+            </div>
+            <div class="mb-4 text-left">
+                <label for="email" class="block text-sm font-medium form-label mb-1">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border-2 form-input focus:border-cotito-blue-vibrant transition-colors">
+            </div>
+            <div class="mb-6 text-left">
+                <label for="message" class="block text-sm font-medium form-label mb-1">Mensaje</label>
+                <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg border-2 form-input focus:border-cotito-blue-vibrant transition-colors"></textarea>
+            </div>
+            <button type="submit" id="submit-btn" class="w-full px-8 py-3 text-lg font-bold rounded-full bg-cotito-blue-dark text-white shadow-lg transform transition hover:scale-105 hover:bg-cotito-blue-vibrant">
+                Enviar
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-cotito-blue-dark">
+        <p class="text-sm">&copy; 2025 COTITO. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-success-icon">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-cotito-blue-dark mb-2">¡Correo enviado exitosamente!</h3>
+            <p class="text-adaptive-muted mb-6">
+                Gracias por contactarnos. Te responderemos a la brevedad posible.
+            </p>
+            <button id="close-modal" class="px-6 py-2 bg-cotito-blue-vibrant text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.2
+            });
+
+            document.querySelectorAll('.fade-in-on-scroll').forEach(element => {
+                observer.observe(element);
+            });
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const logo = document.getElementById('logo');
+            const lightLogo = 'https://i.postimg.cc/PqcVDPQ2/Gemini-Generated-Image-1t8a2v1t8a2v1t8a.png';
+            const darkLogo = 'https://i.postimg.cc/bvzp5V7K/Gemini-Generated-Image-p4br4lp4br4lp4br.png';
+            
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    document.body.dataset.theme = 'dark';
+                    document.documentElement.classList.add('dark');
+                    logo.style.opacity = '0';
+                    setTimeout(() => {
+                        logo.src = darkLogo;
+                        logo.style.opacity = '1';
+                    }, 150);
+                } else {
+                    document.body.dataset.theme = 'light';
+                    document.documentElement.classList.remove('dark');
+                    logo.style.opacity = '0';
+                    setTimeout(() => {
+                        logo.src = lightLogo;
+                        logo.style.opacity = '1';
+                    }, 150);
+                }
+            });
+
+            // Contact Form Handler
+            const contactForm = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const successModal = document.getElementById('success-modal');
+            const closeModal = document.getElementById('close-modal');
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Change button state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enviando...';
+                
+                // Get form data directly from inputs
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const messageInput = document.getElementById('message');
+                
+                const data = {
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    message: messageInput.value,
+                    to: 'cotitohn35@gmail.com'
+                };
+
+                try {
+                    // Simulate sending email (you can replace this with actual email service)
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    // Show success modal
+                    successModal.classList.add('show');
+                    contactForm.reset();
+                    
+                } catch (error) {
+                    alert('Hubo un error al enviar el mensaje. Por favor intenta nuevamente.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar';
+                }
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                successModal.classList.remove('show');
+            });
+
+            // Close modal when clicking outside
+            successModal.addEventListener('click', (e) => {
+                if (e.target === successModal) {
+                    successModal.classList.remove('show');
+                }
+            });
+
+            // Testimonials Carousel
+            let currentSlide = 0;
+            const totalSlides = 3;
+            const container = document.getElementById('testimonials-container');
+            const indicators = document.querySelectorAll('.indicator');
+
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                const translateX = -slideIndex * 100;
+                container.style.transform = `translateX(${translateX}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === slideIndex);
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                goToSlide(currentSlide);
+            }
+
+            // Auto-advance carousel every 4 seconds
+            setInterval(nextSlide, 4000);
+
+            // Make goToSlide function global
+            window.goToSlide = goToSlide;
+        });
+    </script>
+</body>
+</html>
