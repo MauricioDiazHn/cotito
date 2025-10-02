@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por contactarnos - COTITO</title>
+    <style>
+        /* Reset styles for email compatibility */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background-color: #151a21;
+            color: #e9ecef;
+        }
+        
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        
+        img {
+            border: 0;
+            display: block;
+        }
+        
+        /* Main container */
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #151a21;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1E3B5C 0%, #2c3440 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .logo {
+            max-width: 360px;
+            height: auto;
+            margin: 0 auto 20px;
+        }
+        
+        .header h1 {
+            color: #e9ecef;
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        /* Content area */
+        .content {
+            background-color: #1f2937;
+            padding: 40px 30px;
+            border-left: 4px solid #5A64FF;
+        }
+        
+        .content h2 {
+            color: #5A64FF;
+            font-size: 24px;
+            margin: 0 0 20px 0;
+        }
+        
+        .content p {
+            color: #d1d5db;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
+        }
+        
+        /* Info box */
+        .info-box {
+            background-color: #2c3440;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .info-box h3 {
+            color: #5A64FF;
+            font-size: 18px;
+            margin: 0 0 15px 0;
+        }
+        
+        .info-item {
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #374151;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #e9ecef;
+            font-size: 16px;
+        }
+        
+        /* Button */
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: #5A64FF;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #4850d6;
+        }
+        
+        /* Features section */
+        .features {
+            margin: 30px 0;
+        }
+        
+        .feature-item {
+            background-color: #2c3440;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid #5A64FF;
+        }
+        
+        .feature-item h4 {
+            color: #5A64FF;
+            font-size: 16px;
+            margin: 0 0 8px 0;
+        }
+        
+        .feature-item p {
+            color: #d1d5db;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #1E3B5C;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 0 0 16px 16px;
+        }
+        
+        .footer p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .footer a {
+            color: #5A64FF;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Divider */
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #5A64FF, transparent);
+            margin: 25px 0;
+        }
+        
+        /* Responsive */
+        @media only screen and (max-width: 600px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .content h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table class="email-container" role="presentation">
+        <tr>
+            <td>
+                <!-- Header -->
+                <div class="header">
+                    <img src="https://i.postimg.cc/bvzp5V7K/Gemini-Generated-Image-p4br4lp4br4lp4br.png" alt="COTITO Logo" class="logo">
+                    <h1>¡Gracias por contactarnos!</h1>
+                </div>
+                
+                <!-- Content -->
+                <div class="content">
+                    <h2>Hemos recibido tu mensaje</h2>
+                    
+                    <p>Hola <strong>{{name}}</strong>,</p>
+                    
+                    <p>Muchas gracias por tu interés en nuestro taller de <strong>Desarrollo y Automatización</strong>. Hemos recibido tu mensaje y nos pondremos en contacto contigo lo antes posible.</p>
+                    
+                    <div class="divider"></div>
+                    
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <h3>📋 Resumen de tu consulta:</h3>
+                        <div class="info-item">
+                            <span class="info-label">Nombre:</span>
+                            <span class="info-value">{{name}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value">{{email}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Mensaje:</span>
+                            <span class="info-value">{{message}}</span>
+                        </div>
+                    </div>
+                    
+                    <p>Nuestro equipo revisará tu mensaje y te responderá en un plazo máximo de 24-48 horas.</p>
+                    
+                    <div class="divider"></div>
+                    
+                    <!-- Features -->
+                    <div class="features">
+                        <h3 style="color: #e9ecef; font-size: 20px; margin-bottom: 20px;">¿Qué aprenderás en nuestro taller?</h3>
+                        
+                        <div class="feature-item">
+                            <h4>🔗 Integración de APIs</h4>
+                            <p>Conecta sistemas y aplicaciones mediante APIs para una comunicación fluida y eficiente.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>🌿 Control de Versiones (Git & GitHub)</h4>
+                            <p>Domina Git y GitHub para gestionar y rastrear cambios en el código de manera profesional.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>⚡ Automatización con n8n</h4>
+                            <p>Crea flujos de trabajo automatizados para optimizar procesos repetitivos y complejos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <!-- Call to Action -->
+                    <div class="button-container">
+                        <a href="#" class="button">Visita Nuestra Página Web</a>
+                    </div>
+                    
+                    <p style="text-align: center; color: #9ca3af; font-size: 14px; margin-top: 30px;">
+                        Si tienes alguna pregunta urgente, no dudes en responder directamente a este correo.
+                    </p>
+                </div>
+                
+                <!-- Footer -->
+                <div class="footer">
+                    <p><strong>COTITO</strong> - Desarrollo y Automatización</p>
+                    <p>Email: <a href="mailto:mauricio.diaz@cotitohn.com">mauricio.diaz@cotitohn.com</a></p>
+                    <p style="margin-top: 15px; font-size: 12px;">
+                        &copy; 2025 COTITO. Todos los derechos reservados.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
