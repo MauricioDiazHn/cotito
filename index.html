@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desarrollo y Automatización - COTITO</title>
+    <title>Desarrollo y Automatización - COTITOHN</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/CotitoHn_Icon.png">
+    <link rel="shortcut icon" type="image/png" href="img/CotitoHn_Icon.png">
+    <link rel="apple-touch-icon" href="img/CotitoHn_Icon.png">
+    
+    <!-- Meta tags para SEO y búsquedas -->
+    <meta name="description" content="COTITOHN - Taller intensivo de Desarrollo y Automatización: Git, Github, n8n e Integración de APIs">
+    <meta property="og:title" content="Desarrollo y Automatización - COTITOHN">
+    <meta property="og:description" content="Taller intensivo de Desarrollo y Automatización con Git, Github, n8n e Integración de APIs">
+    <meta property="og:image" content="img/CotitoHn_Icon.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
@@ -136,7 +148,7 @@
 
         .logo-img {
             transition: opacity 0.3s ease;
-            height: 180px;
+            height: 250px;
             width: auto;
         }
 
@@ -337,7 +349,7 @@
 
     <!-- Dark Mode Toggle Switch -->
     <div class="toggle-switch-container">
-        <input type="checkbox" id="theme-toggle" class="toggle-checkbox">
+        <input type="checkbox" id="theme-toggle" class="toggle-checkbox" checked>
         <label for="theme-toggle" class="toggle-label">
             <svg class="sun-icon" fill="#facc15" viewBox="0 0 24 24" stroke="none">
                 <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.75 9a.75.75 0 01.75.75v.75h.75a.75.75 0 010 1.5h-.75v.75a.75.75 0 01-1.5 0v-.75-.75a.75.75 0 01.75-.75zM4.5 9a.75.75 0 01.75.75v.75H6a.75.75 0 010 1.5H5.25v.75a.75.75 0 01-1.5 0v-.75-.75a.75.75 0 01.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM5.187 5.187a.75.75 0 011.06-1.06L7.25 5.25l-.75.75-.75-.75-1.06-1.06zM18.813 5.187l-1.06 1.06-.75-.75.75-.75 1.06-1.06.75.75.75-.75 1.06 1.06-.75.75-.75-.75zM5.187 18.813a.75.75 0 011.06-1.06l1.06 1.06.75-.75.75.75-1.06 1.06-1.06-1.06-.75.75-.75-.75-1.06-1.06zM18.813 18.813l-1.06 1.06-.75-.75.75-.75 1.06-1.06.75.75.75-.75-1.06-1.06z"/>
@@ -363,7 +375,7 @@
         </div>
         
         <div class="relative z-10 p-6 rounded-2xl shadow-xl max-w-4xl glass-bg">
-            <img id="logo" src="https://i.postimg.cc/jjRhCvdv/Gemini-Generated-Image-ttvtdfttvtdfttvt.png" alt="Logo de COTITO" class="mx-auto mb-4 logo-img">
+            <img id="logo" src="img/CotitoHn_LogoDark.png" alt="Logo de COTITOHN" class="mx-auto mb-4 logo-img">
             <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight text-cotito-blue-dark">
                 Desarrollo y Automatización
             </h1>
@@ -432,7 +444,7 @@
             <div class="md:w-2/3 text-left">
                 <h2 class="text-2xl md:text-3xl font-bold mb-4 text-cotito-blue-dark">Un Mensaje del Fundador</h2>
                 <blockquote class="italic text-lg md:text-xl font-light text-adaptive-muted border-l-4 border-cotito-blue-vibrant pl-4">
-                    "En 'COTITO', hemos creado un espacio de formación intensiva para impulsar a la próxima generación de innovadores. Nuestro enfoque práctico garantiza que cada estudiante adquiera las habilidades técnicas y la mentalidad necesarias para resolver problemas reales. Estoy inmensamente orgulloso del progreso de cada uno de ellos."
+                    "En 'COTITOHN', hemos creado un espacio de formación intensiva para impulsar a la próxima generación de innovadores. Nuestro enfoque práctico garantiza que cada estudiante adquiera las habilidades técnicas y la mentalidad necesarias para resolver problemas reales. Estoy inmensamente orgulloso del progreso de cada uno de ellos."
                 </blockquote>
                 <p class="mt-4 text-xl font-semibold text-cotito-blue-dark">Mauricio Díaz</p>
                 <p class="text-lg text-adaptive-muted">FullStack Developer & CEO</p>
@@ -508,7 +520,7 @@
 
     <!-- Footer -->
     <footer class="py-8 text-center text-cotito-blue-dark">
-        <p class="text-sm">&copy; 2025 COTITO. Todos los derechos reservados.</p>
+        <p class="text-sm">&copy; 2025 COTITOHN. Todos los derechos reservados.</p>
     </footer>
 
     <!-- Success Modal -->
@@ -549,8 +561,13 @@
 
             const themeToggle = document.getElementById('theme-toggle');
             const logo = document.getElementById('logo');
-            const lightLogo = 'https://i.postimg.cc/jjRhCvdv/Gemini-Generated-Image-ttvtdfttvtdfttvt.png';
-            const darkLogo = 'https://i.postimg.cc/dV2Bqgv4/Gemini-Generated-Image-abd0iqabd0iqabd0.png';
+            const lightLogo = 'img/CotitoHn_LogoDark.png';
+            const darkLogo = 'img/CotitoHn_LogoWhite.png';
+            
+            // Aplicar modo oscuro por defecto al cargar la página
+            document.body.dataset.theme = 'dark';
+            document.documentElement.classList.add('dark');
+            logo.src = darkLogo;
             
             themeToggle.addEventListener('change', () => {
                 if (themeToggle.checked) {
