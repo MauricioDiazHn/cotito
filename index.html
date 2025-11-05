@@ -148,8 +148,20 @@
 
         .logo-img {
             transition: opacity 0.3s ease;
-            height: 250px;
+            height: 150px;
             width: auto;
+        }
+
+        @media (min-width: 640px) {
+            .logo-img {
+                height: 200px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .logo-img {
+                height: 250px;
+            }
         }
 
         /* Modal Styles */
@@ -343,9 +355,58 @@
             stroke-width: 1.5;
             opacity: 0.6;
         }
+
+        /* Ensure content is above Spline animation */
+        header, section, footer, .toggle-switch-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Make sections slightly transparent to see animation */
+        .glass-bg {
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        [data-theme="dark"] .glass-bg {
+            background-color: rgba(21, 26, 33, 0.85);
+        }
     </style>
 </head>
 <body class="circle-pattern">
+
+    <!-- Spline Animation Fullscreen Background -->
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden;">
+        <spline-viewer url="https://prod.spline.design/FBJmHX6eRQrprBQi/scene.splinecode" 
+                       style="width: 100%; height: 100%; background: transparent;"
+                       background="transparent"
+                       logo="false"></spline-viewer>
+    </div>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.96/build/spline-viewer.js"></script>
+    
+    <!-- Script para ocultar el logo de Spline -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const viewer = document.querySelector('spline-viewer');
+            if (viewer) {
+                setTimeout(() => {
+                    try {
+                        const shadowRoot = viewer.shadowRoot;
+                        if (shadowRoot) {
+                            const logo = shadowRoot.querySelector('#logo');
+                            if (logo) {
+                                logo.style.display = 'none';
+                                logo.style.visibility = 'hidden';
+                                logo.style.opacity = '0';
+                                logo.remove();
+                            }
+                        }
+                    } catch (e) {
+                        console.log('No se pudo ocultar el logo:', e);
+                    }
+                }, 1000);
+            }
+        });
+    </script>
 
     <!-- Dark Mode Toggle Switch -->
     <div class="toggle-switch-container">
@@ -361,7 +422,7 @@
     </div>
 
     <!-- Hero Section -->
-    <header class="relative flex flex-col items-center justify-center min-h-screen px-4 py-12 text-center">
+    <header class="relative flex flex-col items-center justify-center min-h-screen px-4 py-12 text-center mb-32 md:mb-96">
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
             <svg class="absolute top-[-50px] left-[-50px] w-64 h-64 md:w-96 md:h-96 text-cotito-blue-vibrant opacity-10" fill="currentColor" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" />
@@ -374,15 +435,15 @@
             </svg>
         </div>
         
-        <div class="relative z-10 p-6 rounded-2xl shadow-xl max-w-4xl glass-bg">
+        <div class="relative z-10 p-4 md:p-6 rounded-2xl shadow-xl max-w-4xl glass-bg w-full mx-2">
             <img id="logo" src="img/CotitoHn_LogoDark.png" alt="Logo de COTITOHN" class="mx-auto mb-4 logo-img">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight text-cotito-blue-dark">
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight text-cotito-blue-dark">
                 Desarrollo y Automatización
             </h1>
-            <p class="text-lg md:text-xl font-medium text-cotito-blue-dark max-w-2xl mx-auto mb-8">
+            <p class="text-base sm:text-lg md:text-xl font-medium text-cotito-blue-dark max-w-2xl mx-auto mb-8">
                 Un taller intensivo de Desarrollo y Automatización donde adquieres competencias clave en Control de Versiones (Git y Github), Automatización (n8n) e Integración de APIs.
             </p>
-            <a href="#about-section" class="inline-block px-8 py-3 text-lg font-bold rounded-full bg-cotito-blue-vibrant text-white shadow-lg transform transition hover:scale-105 hover:shadow-2xl">
+            <a href="#about-section" class="inline-block px-6 md:px-8 py-2 md:py-3 text-base md:text-lg font-bold rounded-full bg-cotito-blue-vibrant text-white shadow-lg transform transition hover:scale-105 hover:shadow-2xl">
                 Saber Más
             </a>
         </div>
@@ -441,9 +502,9 @@
             <div class="md:w-1/3 flex justify-center">
                 <img src="https://i.postimg.cc/wvCgG44M/Whats-App-Image-2025-07-14-at-13-19-51-1.jpg" alt="Foto del CEO" class="rounded-full shadow-lg border-4 border-white transform transition hover:scale-105">
             </div>
-            <div class="md:w-2/3 text-left">
+            <div class="md:w-2/3 text-left p-6 md:p-8 rounded-2xl glass-bg shadow-lg border border-gray-200">
                 <h2 class="text-2xl md:text-3xl font-bold mb-4 text-cotito-blue-dark">Un Mensaje del Fundador</h2>
-                <blockquote class="italic text-lg md:text-xl font-light text-adaptive-muted border-l-4 border-cotito-blue-vibrant pl-4">
+                <blockquote class="italic text-lg md:text-xl font-light text-adaptive-muted border-l-4 border-cotito-blue-vibrant pl-4 mb-4">
                     "En 'COTITOHN', hemos creado un espacio de formación intensiva para impulsar a la próxima generación de innovadores. Nuestro enfoque práctico garantiza que cada estudiante adquiera las habilidades técnicas y la mentalidad necesarias para resolver problemas reales. Estoy inmensamente orgulloso del progreso de cada uno de ellos."
                 </blockquote>
                 <p class="mt-4 text-xl font-semibold text-cotito-blue-dark">Mauricio Díaz</p>
