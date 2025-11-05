@@ -370,6 +370,94 @@
         [data-theme="dark"] .glass-bg {
             background-color: rgba(21, 26, 33, 0.85);
         }
+
+        /* SVG Icon Animations */
+        .icon-float {
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(90, 100, 255, 0.4));
+        }
+
+        .icon-pulse {
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        .icon-rotate {
+            animation: rotateIcon 4s linear infinite;
+            filter: drop-shadow(0 0 8px rgba(90, 100, 255, 0.4));
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+                filter: drop-shadow(0 0 8px rgba(90, 100, 255, 0.4));
+            }
+            50% {
+                transform: translateY(-10px);
+                filter: drop-shadow(0 0 20px rgba(90, 100, 255, 0.8));
+            }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px rgba(90, 100, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 25px rgba(90, 100, 255, 1)) drop-shadow(0 0 40px rgba(0, 153, 255, 0.8));
+            }
+        }
+
+        @keyframes rotateIcon {
+            0% {
+                transform: rotate(0deg) scale(1);
+                filter: drop-shadow(0 0 8px rgba(90, 100, 255, 0.4));
+            }
+            25% {
+                transform: rotate(5deg) scale(1.05);
+                filter: drop-shadow(0 0 20px rgba(90, 100, 255, 0.8));
+            }
+            50% {
+                transform: rotate(0deg) scale(1);
+                filter: drop-shadow(0 0 8px rgba(90, 100, 255, 0.4));
+            }
+            75% {
+                transform: rotate(-5deg) scale(1.05);
+                filter: drop-shadow(0 0 20px rgba(90, 100, 255, 0.8));
+            }
+            100% {
+                transform: rotate(0deg) scale(1);
+                filter: drop-shadow(0 0 8px rgba(90, 100, 255, 0.4));
+            }
+        }
+
+        /* Hover effects for icons */
+        .icon-container:hover .icon-float {
+            animation-play-state: paused;
+            transform: scale(1.15) translateY(-5px);
+            filter: drop-shadow(0 0 30px rgba(90, 100, 255, 1)) 
+                    drop-shadow(0 0 50px rgba(0, 153, 255, 0.8))
+                    drop-shadow(0 10px 30px rgba(90, 100, 255, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .icon-container:hover .icon-pulse {
+            animation-play-state: paused;
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 30px rgba(90, 100, 255, 1)) 
+                    drop-shadow(0 0 50px rgba(0, 153, 255, 0.8))
+                    drop-shadow(0 10px 30px rgba(90, 100, 255, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .icon-container:hover .icon-rotate {
+            animation-play-state: paused;
+            transform: scale(1.15) rotate(10deg);
+            filter: drop-shadow(0 0 30px rgba(90, 100, 255, 1)) 
+                    drop-shadow(0 0 50px rgba(0, 153, 255, 0.8))
+                    drop-shadow(0 10px 30px rgba(90, 100, 255, 0.6));
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body class="circle-pattern">
@@ -455,8 +543,8 @@
         <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-left">
             <!-- Feature 1 -->
             <div class="p-6 rounded-xl shadow-lg border border-gray-200 glass-bg fade-in-on-scroll">
-                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold icon-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto icon-float" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                 </div>
@@ -467,8 +555,8 @@
             </div>
             <!-- Feature 2 -->
             <div class="p-6 rounded-xl shadow-lg border border-gray-200 glass-bg fade-in-on-scroll">
-                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold icon-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto icon-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <circle cx="6" cy="6" r="2" />
                         <circle cx="18" cy="6" r="2" />
                         <circle cx="12" cy="18" r="2" />
@@ -483,8 +571,8 @@
             </div>
             <!-- Feature 3 -->
             <div class="p-6 rounded-xl shadow-lg border border-gray-200 glass-bg fade-in-on-scroll">
-                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="text-3xl text-cotito-blue-vibrant mb-4 font-bold icon-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto icon-rotate" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                 </div>
