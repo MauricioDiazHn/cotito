@@ -506,6 +506,205 @@
             filter: drop-shadow(0 0 30px rgba(90, 100, 255, 1)) drop-shadow(0 0 50px rgba(0, 153, 255, 0.8)) drop-shadow(0 10px 30px rgba(90, 100, 255, 0.6));
             transition: all 0.3s ease;
         }
+
+        /* Video Grid & Card Styles */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .video-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(90, 100, 255, 0.25), 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-thumbnail-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #1a1f36 0%, #2d3250 50%, #1a1f36 100%);
+            overflow: hidden;
+        }
+
+        .video-thumbnail-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail-wrapper::before {
+            opacity: 0.7;
+        }
+
+        .video-thumbnail-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            background: rgba(90, 100, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 24px rgba(90, 100, 255, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .video-card:hover .play-btn {
+            transform: scale(1.15);
+            box-shadow: 0 6px 32px rgba(90, 100, 255, 0.7);
+            background: rgba(90, 100, 255, 1);
+        }
+
+        .play-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+            margin-left: 3px;
+        }
+
+        .video-card-info {
+            padding: 0.875rem 1rem;
+            text-align: center;
+        }
+
+        .video-card-info p {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .video-card-info span {
+            font-size: 0.75rem;
+            color: #5A64FF;
+            font-weight: 500;
+        }
+
+        /* Video Modal / Lightbox */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-modal.active {
+            display: flex;
+            animation: modalFadeIn 0.35s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 30vw;
+            min-width: 320px;
+            max-width: 480px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: modalSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .video-modal-content video {
+            width: 100%;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -44px;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+            color: #fff;
+        }
+
+        .video-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .video-modal-close svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .video-modal-title {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-top: 12px;
+        }
     </style>
 </head>
 
@@ -590,21 +789,24 @@
                 <a href="https://t.me/+tu_enlace_telegram" target="_blank" rel="noopener noreferrer"
                     class="inline-flex items-center gap-2 px-6 md:px-8 py-3 text-base md:text-lg font-bold rounded-full bg-[#0088cc] text-white shadow-lg transform transition hover:scale-105 hover:shadow-2xl">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.121.098.155.23.171.324.016.094.037.308.021.475z"/>
+                        <path
+                            d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.121.098.155.23.171.324.016.094.037.308.021.475z" />
                     </svg>
                     Únete al Grupo
                 </a>
                 <a href="https://discord.gg/tu_enlace_discord" target="_blank" rel="noopener noreferrer"
                     class="inline-flex items-center gap-2 px-6 md:px-8 py-3 text-base md:text-lg font-bold rounded-full bg-[#5865F2] text-white shadow-lg transform transition hover:scale-105 hover:shadow-2xl">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+                        <path
+                            d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z" />
                     </svg>
                     Comunidad Discord
                 </a>
                 <a href="#certificado"
                     class="inline-flex items-center gap-2 px-6 md:px-8 py-3 text-base md:text-lg font-bold rounded-full bg-cotito-blue-vibrant text-white shadow-lg transform transition hover:scale-105 hover:shadow-2xl">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                     </svg>
                     Obtener Certificado
                 </a>
@@ -735,56 +937,86 @@
         </div>
     </section>
 
-    <!-- Video Carousel Section -->
+    <!-- Video Experiences Section -->
     <section class="px-4 py-16 md:py-24 max-w-4xl mx-auto text-center fade-in-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-cotito-blue-dark">Experiencias en Video</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-cotito-blue-dark">Experiencias en Video</h2>
+        <p class="text-base text-adaptive-muted mb-10 max-w-2xl mx-auto">Escucha directamente de nuestros estudiantes
+            cómo COTITO transformó su carrera profesional.</p>
 
-        <div class="testimonials-carousel">
-            <div class="testimonials-container" id="video-carousel-container">
-                <!-- Video 1 -->
-                <div class="testimonial-slide">
-                    <div class="max-w-2xl mx-auto">
-                        <video class="w-full rounded-xl shadow-lg" controls>
-                            <source src="videos/experience-1.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
+        <div class="video-grid">
+            <!-- Video Card 1 -->
+            <div class="video-card" onclick="openVideoModal('videos/experience-1.mp4', 'Experiencia de Roger Garcia')">
+                <div class="video-thumbnail-wrapper">
+                    <div class="video-thumbnail-icon">
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24">
+                                <polygon points="6,3 20,12 6,21"></polygon>
+                            </svg>
+                        </div>
                     </div>
-                    <p class="mt-4 font-semibold text-cotito-blue-dark">Experiencia de Roger Garcia</p>
                 </div>
-
-                <!-- Video 2 -->
-                <div class="testimonial-slide">
-                    <div class="max-w-2xl mx-auto">
-                        <video class="w-full rounded-xl shadow-lg" controls>
-                            <source src="videos/experience-2.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
-                    </div>
-                    <p class="mt-4 font-semibold text-cotito-blue-dark">Experiencia de Keidy Lopez</p>
-                </div>
-
-                <!-- Video 3 -->
-                <div class="testimonial-slide">
-                    <div class="max-w-2xl mx-auto">
-                        <video class="w-full rounded-xl shadow-lg" controls>
-                            <source src="videos/experience-3.mp4" type="video/mp4">
-                            Tu navegador no soporta el elemento de video.
-                        </video>
-                    </div>
-                    <p class="mt-4 font-semibold text-cotito-blue-dark">Experiencia de Jonathan Aguilar</p>
+                <div class="video-card-info">
+                    <p>Roger Garcia</p>
+                    <span>Analista de Sistemas</span>
                 </div>
             </div>
 
-            <div class="carousel-indicators" id="video-indicators">
-                <div class="indicator active" onclick="goToVideoSlide(0)"></div>
-                <div class="indicator" onclick="goToVideoSlide(1)"></div>
-                <div class="indicator" onclick="goToVideoSlide(2)"></div>
+            <!-- Video Card 2 -->
+            <div class="video-card" onclick="openVideoModal('videos/experience-2.mp4', 'Experiencia de Keidy Lopez')">
+                <div class="video-thumbnail-wrapper">
+                    <div class="video-thumbnail-icon">
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24">
+                                <polygon points="6,3 20,12 6,21"></polygon>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card-info">
+                    <p>Keidy Lopez</p>
+                    <span>Estudiante Destacada</span>
+                </div>
+            </div>
+
+            <!-- Video Card 3 -->
+            <div class="video-card"
+                onclick="openVideoModal('videos/experience-3.mp4', 'Experiencia de Jonathan Aguilar')">
+                <div class="video-thumbnail-wrapper">
+                    <div class="video-thumbnail-icon">
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24">
+                                <polygon points="6,3 20,12 6,21"></polygon>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card-info">
+                    <p>Jonathan Aguilar</p>
+                    <span>Practicante de IT</span>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Video Modal / Lightbox -->
+    <div id="video-modal" class="video-modal" onclick="closeVideoModal(event)">
+        <div class="video-modal-content" onclick="event.stopPropagation()">
+            <button class="video-modal-close" onclick="closeVideoModal()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+            <video id="video-modal-player" controls>
+                <source id="video-modal-source" src="" type="video/mp4">
+            </video>
+            <p id="video-modal-title" class="video-modal-title"></p>
+        </div>
+    </div>
+
     <!-- Contact Form Section -->
-    <section id="contact-section" class="px-4 py-16 md:py-24 max-w-2xl mx-auto text-center fade-in-on-scroll" style="display: none;">
+    <section id="contact-section" class="px-4 py-16 md:py-24 max-w-2xl mx-auto text-center fade-in-on-scroll"
+        style="display: none;">
         <h2 class="text-3xl md:text-5xl font-bold mb-8 text-cotito-blue-dark">
             ¿Quieres saber más?
         </h2>
@@ -818,54 +1050,64 @@
     <!-- Call to Action Section Before Footer -->
     <section id="certificado" class="px-4 py-16 md:py-24 max-w-5xl mx-auto text-center fade-in-on-scroll">
         <div class="p-8 md:p-12 rounded-2xl shadow-2xl glass-bg border-2 border-cotito-blue-vibrant">
-            <h2 class="text-3xl md:text-5xl font-bold mb-6 text-cotito-blue-dark">🚀 ¡Comienza Tu Transformación Ahora!</h2>
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 text-cotito-blue-dark">🚀 ¡Comienza Tu Transformación Ahora!
+            </h2>
             <p class="text-lg md:text-xl text-adaptive-muted mb-8 max-w-3xl mx-auto">
-                Únete a nuestra comunidad, aprende <strong class="text-cotito-blue-vibrant">GRATIS</strong> y certifícate por solo <strong class="text-cotito-blue-vibrant">$7 USD</strong>. Miles de estudiantes ya están automatizando su futuro.
+                Únete a nuestra comunidad, aprende <strong class="text-cotito-blue-vibrant">GRATIS</strong> y
+                certifícate por solo <strong class="text-cotito-blue-vibrant">$7 USD</strong>. Miles de estudiantes ya
+                están automatizando su futuro.
             </p>
-            
+
             <div class="grid md:grid-cols-3 gap-6 mb-8">
                 <div class="p-6 rounded-xl glass-bg border border-gray-200">
                     <div class="text-4xl mb-3">📱</div>
                     <h3 class="text-xl font-bold mb-2 text-cotito-blue-dark">Grupo Telegram</h3>
-                    <p class="text-sm text-adaptive-muted mb-4">Recibe material, participa en discusiones y resuelve dudas en tiempo real</p>
-                    <a href="https://t.me/+tu_enlace_telegram" target="_blank" rel="noopener noreferrer"
+                    <p class="text-sm text-adaptive-muted mb-4">Recibe material, participa en discusiones y resuelve
+                        dudas en tiempo real</p>
+                    <a href="https://t.me/+EnZJ0CX-jT8yOTQx" target="_blank" rel="noopener noreferrer"
                         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-full bg-[#0088cc] text-white shadow-md transform transition hover:scale-105">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.121.098.155.23.171.324.016.094.037.308.021.475z"/>
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.121.098.155.23.171.324.016.094.037.308.021.475z" />
                         </svg>
                         Unirme Ahora
                     </a>
                 </div>
-                
+
                 <div class="p-6 rounded-xl glass-bg border border-gray-200">
                     <div class="text-4xl mb-3">💬</div>
                     <h3 class="text-xl font-bold mb-2 text-cotito-blue-dark">Discord VIP</h3>
-                    <p class="text-sm text-adaptive-muted mb-4">Comunidad exclusiva, recursos premium y networking con profesionales</p>
-                    <a href="https://discord.gg/tu_enlace_discord" target="_blank" rel="noopener noreferrer"
+                    <p class="text-sm text-adaptive-muted mb-4">Comunidad exclusiva, recursos premium y networking con
+                        profesionales</p>
+                    <a href="https://discord.gg/GkHFGBEt83" target="_blank" rel="noopener noreferrer"
                         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-full bg-[#5865F2] text-white shadow-md transform transition hover:scale-105">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+                            <path
+                                d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z" />
                         </svg>
                         Acceder Ahora
                     </a>
                 </div>
-                
+
                 <div class="p-6 rounded-xl glass-bg border-2 border-cotito-blue-vibrant bg-opacity-90">
                     <div class="text-4xl mb-3">🏆</div>
                     <h3 class="text-xl font-bold mb-2 text-cotito-blue-vibrant">Certificado Oficial</h3>
-                    <p class="text-sm text-adaptive-muted mb-4">Valida tus conocimientos con un certificado reconocido por solo $7 USD</p>
+                    <p class="text-sm text-adaptive-muted mb-4">Valida tus conocimientos con un certificado reconocido
+                        por solo $7 USD</p>
                     <a href="#contact-section"
                         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-full bg-cotito-blue-vibrant text-white shadow-md transform transition hover:scale-105">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                         </svg>
                         Obtener Ahora
                     </a>
                 </div>
             </div>
-            
+
             <div class="text-sm text-adaptive-muted">
-                ⚡ <strong>Curso 100% Gratis</strong> | 🎓 <strong>Certificado $7 USD</strong> | 🌎 <strong>Comunidad Global</strong>
+                ⚡ <strong>Curso 100% Gratis</strong> | 🎓 <strong>Certificado $7 USD</strong> | 🌎 <strong>Comunidad
+                    Global</strong>
             </div>
         </div>
     </section>
@@ -1052,58 +1294,38 @@
             // Make goToSlide function global
             window.goToSlide = goToSlide;
 
-            // Video Carousel Logic
-            let currentVideoSlide = 0;
-            const totalVideoSlides = 3;
-            const videoContainer = document.getElementById('video-carousel-container');
-            const videoIndicators = document.querySelectorAll('#video-indicators .indicator');
-            let videoInterval;
+            // Video Modal Logic
+            const videoModal = document.getElementById('video-modal');
+            const videoPlayer = document.getElementById('video-modal-player');
+            const videoSource = document.getElementById('video-modal-source');
+            const videoTitle = document.getElementById('video-modal-title');
 
-            function startVideoInterval() {
-                clearInterval(videoInterval);
-                videoInterval = setInterval(nextVideoSlide, 10000);
-            }
+            window.openVideoModal = function (src, title) {
+                videoSource.src = src;
+                videoPlayer.load();
+                videoTitle.textContent = title;
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                videoPlayer.play().catch(() => { });
+            };
 
-            function goToVideoSlide(slideIndex) {
-                currentVideoSlide = slideIndex;
-                const translateX = -slideIndex * 100;
-                videoContainer.style.transform = `translateX(${translateX}%)`;
+            window.closeVideoModal = function (e) {
+                if (e && e.target !== videoModal && !e.currentTarget.classList?.contains('video-modal-close')) return;
+                videoPlayer.pause();
+                videoPlayer.currentTime = 0;
+                videoModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
 
-                videoIndicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === slideIndex);
-                });
-
-                // Pause videos when moving away
-                const videos = videoContainer.querySelectorAll('video');
-                videos.forEach(video => video.pause());
-            }
-
-            function nextVideoSlide() {
-                currentVideoSlide = (currentVideoSlide + 1) % totalVideoSlides;
-                goToVideoSlide(currentVideoSlide);
-            }
-
-            startVideoInterval();
-
-            // Handle video playback interaction
-            const carouselVideos = videoContainer.querySelectorAll('video');
-            carouselVideos.forEach(video => {
-                video.addEventListener('play', () => clearInterval(videoInterval));
-                video.addEventListener('pause', startVideoInterval);
-                video.addEventListener('ended', startVideoInterval);
-            });
-
-            // Optional: Pause on hover (desktop)
-            videoContainer.addEventListener('mouseenter', () => clearInterval(videoInterval));
-            videoContainer.addEventListener('mouseleave', () => {
-                // Only restart if no video is playing
-                const isAnyVideoPlaying = Array.from(carouselVideos).some(v => !v.paused && !v.ended && v.readyState > 2);
-                if (!isAnyVideoPlaying) {
-                    startVideoInterval();
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    videoPlayer.pause();
+                    videoPlayer.currentTime = 0;
+                    videoModal.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
-
-            window.goToVideoSlide = goToVideoSlide;
         });
     </script>
 </body>
